@@ -3,21 +3,26 @@
 <xsl:stylesheet version="3.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:t="urn:template"
-  xmlns:ogp="https://ogp.me/ns#"
   xmlns:fn="http://www.w3.org/2005/xpath-functions"
   xpath-default-namespace="http://www.w3.org/1999/xhtml">
-    <xsl:output method="xml"/>
+  <xsl:output method="xml" />
 
-    <xsl:param name="path"/>
-    
-    <xsl:variable name="target" select="document($path,.)"></xsl:variable>
+  <!-- OGP情報を取得したいXHTMLのパス-->
+  <xsl:param name="path" />
 
-    <xsl:template match="t:title">
-      <xsl:value-of select="$target//meta[@property=fn:QName('https://ogp.me/ns#','title')]/@content"></xsl:value-of>
-    </xsl:template>
+  <!-- 対象のDOM-->
+  <xsl:variable name="target" select="document($path,.)"></xsl:variable>
 
-    <xsl:template match="*">
-      <xsl:copy/>
-      <xsl:apply-templates/>
-    </xsl:template>
+  <!-- t:title要素を処理-->
+  <xsl:template match="t:title">
+    <xsl:value-of select="$target//meta[fn:resolve-QName(@property,.)=fn:QName('https://ogp.me/ns#','title')]/@content"></xsl:value-of>
+  </xsl:template>
+
+  <!-- その他一般の要素や属性をそのままコピーする-->
+  <xsl:template match="@*|node()">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <xsl:apply-templates />
+    </xsl:copy>
+  </xsl:template>
 </xsl:stylesheet>

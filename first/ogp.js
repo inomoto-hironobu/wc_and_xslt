@@ -2,6 +2,7 @@ class InternalOgp extends HTMLElement {
 	constructor() {
 		super();
 		const options = {
+			
 			stylesheetLocation: "ogp.sef.json",
 			//DocumentFragmentを取得しXSLTのソースとする
 			sourceNode: document.getElementById('ogp-template').content,
@@ -15,7 +16,6 @@ class InternalOgp extends HTMLElement {
 		SaxonJS.transform(options, "async")
 		//SaxonJSから
 		.then(d=>{
-			//
 			this
 			//シャドールートにアタッチ
 			.attachShadow({mode:"open"})
