@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:t="urn:template">
+<head>
+<script src="../SaxonJS2.js"></script>
+<script src="ogp.js"></script>
+</head>
+<body>
+<p>
+<internal-ogp path="../ogp.xhtml" />
+</p>
+<template id="ogp-template">
+<div class="ogp">
+title:<t:title /><br />
+description:<t:description /><br />
+type:<span t:type="" class="type">何かな</span><br />
+image:<img class="test" t:image="" /><br />
+href:<a t:url="">リンク</a>
+
+</div>
+</template>
+</body>
+</html>
